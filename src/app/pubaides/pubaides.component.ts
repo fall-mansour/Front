@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { environment } from '../../environnement';
 
-
 @Component({
   selector: 'app-pubaides',
   standalone: true,
@@ -121,22 +120,21 @@ export class PubaidesComponent implements OnInit {
   }
 
   prevImage(): void {
-    if (!this.images.length) return;
+    if (this.images.length <= 1) return;
     this.currentImageIndex = (this.currentImageIndex - 1 + this.images.length) % this.images.length;
     this.updateSelectedImage();
   }
 
   nextImage(): void {
-    if (!this.images.length) return;
+    if (this.images.length <= 1) return;
     this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
     this.updateSelectedImage();
   }
 
   updateSelectedImage(): void {
+    if (!this.images.length) return;
     this.selectedImage = this.sanitizer.bypassSecurityTrustUrl(
-  `${environment.apiUrl.replace('/api','')}/uploads/${this.images[this.currentImageIndex]
+      `${environment.apiUrl.replace('/api','')}/uploads/${this.images[this.currentImageIndex]}`
     );
   }
-
-
 }
