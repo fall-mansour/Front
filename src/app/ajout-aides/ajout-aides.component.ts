@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { environment } from '../../environnement';  // <-- ajouté
 
 @Component({
   selector: 'app-ajout-aides',
@@ -18,7 +19,6 @@ export class AjoutAidesComponent implements OnInit {
   categories: string[] = [];
   utilisateur_id: number = 0;
 
-  // 3 fichiers images
   image!: File;
   image1!: File;
   image2!: File;
@@ -36,8 +36,7 @@ export class AjoutAidesComponent implements OnInit {
     const utilisateur = JSON.parse(utilisateurStr);
     this.utilisateur_id = utilisateur.id;
 
-    // Charger les catégories depuis le backend
-    this.http.get<string[]>('http://localhost:3000/api/pubaides/categories')
+    this.http.get<string[]>(`${environment.apiUrl}/pubaides/categories`)
       .subscribe({
         next: (cats) => this.categories = cats,
         error: (err) => console.error('Erreur chargement catégories', err)
@@ -69,7 +68,7 @@ export class AjoutAidesComponent implements OnInit {
     if (this.image1) formData.append('image1', this.image1);
     if (this.image2) formData.append('image2', this.image2);
 
-    this.http.post('http://localhost:3000/api/pubaides', formData)
+    this.http.post(`${environment.apiUrl}/pubaides`, formData)
       .subscribe({
         next: (res) => {
           console.log('✅ Aide ajoutée', res);
