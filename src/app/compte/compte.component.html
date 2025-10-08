@@ -1,0 +1,80 @@
+
+<div class="container" id="container">
+	<div class="form-container sign-up-container">
+
+	</div>
+	<div class="form-container sign-in-container">
+		<form action="#"  #compteForm="ngForm" (ngSubmit)="creerCompte(compteForm)" novalidate>
+      <div class="entete">
+        <img src="data:image/png;base64,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" height="100px">
+
+      </div>
+
+		 	<input type="text" placeholder="Nom complet" name="nom" id="nom"  [(ngModel)]="formData.nom" required #nom="ngModel" minlength="2" class="form-control"/>
+       <div *ngIf="nom.invalid && (nom.touched || compteForm.submitted)" class="text-danger">
+        <small *ngIf="nom.errors?.['required']">Le nom est obligatoire</small>
+        <small *ngIf="nom.errors?.['minlength']">Minimum 2 caractères</small>
+      </div>
+
+      <br>
+			<input type="mail" placeholder="Email 📨" name="mail" id="mail" [(ngModel)]="formData.mail" required #mail="ngModel" class="form-control"/>
+      <div *ngIf="mail.invalid && (mail.touched || compteForm.submitted)" class="text-danger">
+        <small *ngIf="mail.errors?.['required']">L'email est obligatoire</small>
+        <small *ngIf="mail.errors?.['email']">Format d'email invalide</small>
+      </div>
+      <br>
+
+      <input type="password" placeholder="Mot de passe" name="password" id="password"  [(ngModel)]="formData.password" required  minlength="8"  #password="ngModel" class="form-control"/>
+       <div *ngIf="password.invalid && (password.touched || compteForm.submitted)" class="text-danger">
+        <small *ngIf="password.errors?.['required']">Le mot de passe est obligatoire</small>
+        <small *ngIf="password.errors?.['minlength']">Minimum 8 caractères</small>
+      </div>
+      <br>
+
+      <input type="text" placeholder="Téléphone 📞" name="telephone" id="telephone"  [(ngModel)]="formData.telephone" required pattern="[0-9]{9}" #telephone="ngModel" class="form-control"/>
+      <div *ngIf="telephone.invalid && telephone.touched" class="text-danger">
+        <small>Format : 9 chiffres</small>
+      </div>
+      <br>
+       <input type="text" placeholder="Adresse 📍" name="adresse" id="adresse"  [(ngModel)]="formData.adresse"  class="form-control"/>
+        <br>
+        <select name="statut" id="statut" [(ngModel)]="formData.statut" required #statut="ngModel" class="form-control">
+           <option value="" disabled>Choisissez un statut</option>
+           <option value="donateur">Donateur</option>
+           <option value="beneficiaire">Bénéficiaire</option>
+           <option value="vendeur">Vendeur</option>
+           <option value="acheteur">Acheteur</option>
+        </select>
+      <br>
+     <!-- Message d'erreur global -->
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+
+<!-- Message de succès global -->
+<div *ngIf="successMessage" class="alert alert-success">
+  {{ successMessage }}
+</div>
+
+<!-- Ton bouton submit reste inchangé -->
+<div class="bas">
+  <button type="submit"  [disabled]="isLoading">
+    <span *ngIf="!isLoading">Créer mon compte</span>
+    <span *ngIf="isLoading">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Création en cours...
+    </span>
+  </button>
+</div>
+
+
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+
+			<div class="image-panel">
+  <img src="/assets/compte1.jpg" alt="Illustration">
+</div>
+
+

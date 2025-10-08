@@ -1,0 +1,11 @@
+<router-outlet></router-outlet>
+<div class="cookie-banner" *ngIf="showCookieBanner">
+  <p>
+    Ce site utilise des cookies pour améliorer votre expérience.
+    Acceptez-vous l’utilisation des cookies ?
+  </p>
+  <div class="actions">
+    <button (click)="acceptCookies()">Accepter</button>
+    <button (click)="declineCookies()">Refuser</button>
+  </div>
+</div>

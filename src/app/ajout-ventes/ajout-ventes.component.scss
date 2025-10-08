@@ -1,0 +1,196 @@
+/* Palette douce et moderne */
+:host {
+  display: block;
+  min-height: 100vh;
+  width: 100vw;
+  background-image: url('https://img.freepik.com/photos-premium/femme-africaine-traditionnelle-excitee-faisant-achats-ligne-aide-smartphone-orange_116547-50288.jpg?semt=ais_hybrid&w=740');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+
+/*Overlay pour lisibilité */
+
+
+header {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 2rem 0 1.5rem 0;
+  color: white;
+  letter-spacing: 1px;
+   position: relative;
+  z-index: 1;
+}
+
+:host::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255,255,255,0.2) 60%, rgba(99,102,241,0.10) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+form {
+  background: #fff;
+  max-width: 420px;
+  margin: 2rem auto;
+  padding: 2.5rem 2rem 2rem 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px 0 rgba(79, 70, 229, 0.12), 0 1.5px 4px 0 rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  animation: fadeIn 1s;
+   position: relative;
+  z-index: 1;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="file"] {
+  padding: 0.8rem 1rem;
+  border: 1.5px solid #c7d2fe;
+  border-radius: 0.8rem;
+  font-size: 1rem;
+  background: #f1f5f9;
+  transition: border 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="number"]:focus {
+  border: 1.5px solid #6366f1;
+  box-shadow: 0 0 0 2px #a5b4fc;
+}
+
+input[type="file"] {
+  background: transparent;
+  border: none;
+  padding-left: 0;
+}
+
+button {
+  background: linear-gradient(90deg, #ef4444  0%, #818cf8 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 0.8rem;
+  padding: 0.9rem 0;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 rgba(99, 102, 241, 0.15);
+  transition: background 0.2s, transform 0.1s;
+  margin-top: 0.5rem;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #818cf8 0%, #6366f1 100%);
+  transform: translateY(-2px) scale(1.03);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  form {
+    max-width: 98vw;
+    padding: 1.2rem 0.5rem;
+  }
+  header {
+    font-size: 1.2rem;
+  }
+
+
+}
+
+.bloc{
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1; // pour
+}
+
+.dropdown {
+  position: fixed;
+  display: inline-block;
+   top: 2rem;
+  left: 0rem;
+  z-index: 1200;
+
+
+}
+
+.dropbtn {
+  background: linear-gradient(90deg, #ef4444  0%, #818cf8 100%);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 1.5rem;
+  cursor: pointer;
+}
+
+.dropdown-content {
+   display: none;
+  position: absolute;
+  top: 0;
+  left: 100%; /* Place la liste à droite du bouton */
+  background-color: #fff;
+  min-width: 180px;
+  box-shadow: 0 8px 16px 0 rgba(79, 70, 229, 0.10);
+  border-radius: 1rem;
+  z-index: 999;
+  margin-left: 0.5rem; /* petit espace entre bouton et menu */
+}
+
+
+.dropdown-content a {
+  color: black;
+  padding: 1rem 1.2rem;
+  text-decoration: none;
+  display: block;
+  border-radius: 1rem;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f5f9;
+}
+
+.dropbtn:hover + .dropdown-content,
+.dropdown-content:hover {
+  display: block;
+}
+/* Groupe label + input file horizontal */
+.file-upload-group {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* espace entre label et input */
+}
+
+/* Ajustement input file pour être plus visible */
+.file-upload-group input[type="file"] {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #c7d2fe;
+  border-radius: 0.8rem;
+  background: #f1f5f9;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.select{
+  border: 1.5px solid #6366f1;
+  box-shadow: 0 0 0 2px #a5b4fc;
+}
+

@@ -1,0 +1,51 @@
+<div class="bloc">
+<header>Donnez un coup de main   <img src="/assets/soli.jpeg" height="70px"></header>
+
+<div *ngIf="messageSuccess" class="success-message">{{ messageSuccess }}</div>
+<div *ngIf="messageErreur" class="error-message">{{ messageErreur }}</div>
+
+  <form (ngSubmit)="ajouterAide()">
+    <input type="text" placeholder="Description" [(ngModel)]="description" name="description" required>
+
+    <select [(ngModel)]="categorie" name="categorie" required class="select">
+      <option value="" disabled>Catégorie</option>
+      <option value="Electromenager">Electro-ménager</option>
+      <option value="Informatique">Informatique</option>
+      <option value="Telephone">Téléphones</option>
+      <option value="Mobilier">Mobilier</option>
+      <option value="Habillement">Vêtements & Chaussures</option>
+      <option value="Livres">Livres & Fournitures scolaires</option>
+      <option value="Loisirs">Jouets & Loisirs</option>
+      <option value="Alimentation">Alimentation & Produits divers</option>
+      <option value="bienetre">Bien-être</option>
+    </select>
+
+    <input type="number" placeholder="Quantité" [(ngModel)]="quantite" name="quantite" required>
+
+    <div class="file-upload-group">
+    <label>Image principale :</label>
+    <input type="file" (change)="onImageChange($event, 'image')" required />
+    </div>
+
+    <div class="file-upload-group">
+    <label>Image secondaire 1 :</label>
+    <input type="file" (change)="onImageChange($event, 'image1')" />
+    </div>
+
+
+<div class="file-upload-group">
+    <label>Image secondaire 2 :</label>
+    <input type="file" (change)="onImageChange($event, 'image2')" />
+    </div>
+
+    <button type="submit">Ajouter</button>
+  </form>
+</div>
+
+
+<div class="dropdown">
+  <button class="dropbtn">☰ Menu</button>
+  <div class="dropdown-content">
+   <a href=""><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwGFKSBgWwvQpoAK8XlyOtvgDkqXwOOqQiRg&s" height="20px"> Déconnexion</a>
+   <a href="/pubaides">📦 Publications</a>
+  </div>

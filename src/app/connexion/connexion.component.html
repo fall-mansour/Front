@@ -1,0 +1,45 @@
+
+<div class="container" id="container">
+	<div class="form-container sign-up-container">
+
+	</div>
+	<div class="form-container sign-in-container">
+		<form action="#" (submit)="seConnecter($event)">
+			<div class="entete">
+      <img src="data:image/png;base64,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" height="150px">
+      <h1 >Jaay & Jappalente</h1>
+      </div>
+
+
+			<input type="email" placeholder="Email" name="mail" id="mail"  [(ngModel)]="mail" required/>
+      <br>
+			<input type="password" placeholder="Password" name="password" id="password" [(ngModel)]="password" required/>
+      <br>
+
+	  <div class="lien">
+			<a href="/compte">Pas de compte ?</a>
+			<br>
+			<br>
+			<a href="/password">Mot de passe oublié ? </a>
+			</div>
+
+<div class="connecter">
+			 <button type="submit" [disabled]="isLoading">
+      <span *ngIf="!isLoading">Se connecter</span>
+      <span *ngIf="isLoading">Connexion en cours...</span>
+    </button>
+     <div *ngIf="messageErreur" class="error-message">
+      {{ messageErreur }}
+	  </div>
+    </div>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+
+
+		</div>
+	</div>
+</div>
+
+

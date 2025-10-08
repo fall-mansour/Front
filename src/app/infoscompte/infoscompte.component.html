@@ -1,0 +1,67 @@
+<!-- 🔽 MENU DÉROULANT -->
+<div class="dropdown" [class.open]="menuOuvert">
+  <button class="dropbtn" (click)="menuOuvert = !menuOuvert">☰ Menu</button>
+  <div class="dropdown-content" *ngIf="menuOuvert">
+    <a  (click)="redirigeracceuil()"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwGFKSBgWwvQpoAK8XlyOtvgDkqXwOOqQiRg&s" height="20px"> Deconnexion</a>
+     <a *ngIf="utilisateur.statut === 'donateur' || utilisateur.statut === 'bénéficiaire'"
+
+       (click)="redirigeraides()">
+      📦 Publication
+    </a>
+
+     <a *ngIf="utilisateur.statut === 'donateur' || utilisateur.statut === 'bénéficiaire'"
+
+       (click)="redirigerajoutaides()">
+       ➕ Ajouter un don
+
+    </a>
+
+
+    <a *ngIf="utilisateur.statut === 'vendeur' || utilisateur.statut === 'acheteur'"
+       (click)="redirigerventes()">
+       📦 Publication
+    </a>
+
+     <a *ngIf="utilisateur.statut === 'vendeur' || utilisateur.statut === 'acheteur'"
+       (click)="redirigerajoutventes()">
+       ➕ Ajouter un objet
+
+    </a>
+  </div>
+</div>
+
+
+<!-- 🔽 FORMULAIRE DE MISE À JOUR -->
+<form (ngSubmit)="updateInfos()">
+  <label>Nom :</label>
+  <input type="text" [(ngModel)]="utilisateur.nom" name="nom" required>
+
+  <label>Mail :</label>
+  <input type="email" [(ngModel)]="utilisateur.mail" name="mail" required readonly>
+
+  <label>Téléphone :</label>
+  <input type="text" [(ngModel)]="utilisateur.telephone" name="telephone">
+
+  <label>Adresse :</label>
+  <input type="text" [(ngModel)]="utilisateur.adresse" name="adresse">
+
+  <label>Statut :</label>
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <select [(ngModel)]="utilisateur.statut" name="statut" required [disabled]="tempsRestantStatut > 0">
+      <option *ngFor="let s of statutsDisponibles" [value]="s">{{ s }}</option>
+    </select>
+    <!-- Affichage du temps restant si changement bloqué -->
+    <span *ngIf="tempsRestantStatut > 0" class="info">
+      (Prochain changement possible dans {{ tempsRestantFormat }})
+    </span>
+  </div>
+
+  <button type="submit">✅ Mettre à jour</button>
+
+  <!-- MESSAGES DYNAMIQUES -->
+  <div *ngIf="messageSuccess" class="success">{{ messageSuccess }}</div>
+  <div *ngIf="messageError" class="error">{{ messageError }}</div>
+</form>
+
+
+

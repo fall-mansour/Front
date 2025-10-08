@@ -1,0 +1,235 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(120deg, #f1f5f9 0%, #e0e7ff 100%);
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  padding: 2rem 1rem;
+}
+
+h2 {
+  color: black;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+  text-shadow: 0 2px 8px #e0e7ff;
+}
+
+/* Conteneur de cartes */
+.container {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Carte d’un don */
+.aide-card {
+  display: flex;
+  align-items: flex-start;
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.12), 0 2px 6px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  padding: 1.5rem;
+  gap: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.aide-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(99, 102, 241, 0.18);
+}
+
+/* Image du don */
+.aide-card img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 1rem;
+  flex-shrink: 0;
+}
+
+/* Détails */
+.aide-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.aide-details h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #374151;
+  margin: 0;
+}
+
+.aide-details p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Bouton retirer */
+button {
+  align-self: flex-start;
+  padding: 0.6rem 1.2rem;
+  background: linear-gradient(90deg, #ef4444 0%, #f87171 100%);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #f87171 0%, #ef4444 100%);
+  transform: translateY(-2px);
+}
+
+/* Messages */
+.loading {
+  font-size: 1.1rem;
+  color: #4f46e5;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.error-msg {
+  color: #ef4444;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.no-aides {
+  font-size: 1rem;
+  color: #374151;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .aide-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .aide-card img {
+    width: 100%;
+    height: auto;
+    max-height: 220px;
+  }
+
+  button {
+    align-self: center;
+  }
+}
+
+.search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.8rem 1rem;
+  margin: 0 auto 1.5rem;
+  display: block;
+  border: 1.5px solid #c7d2fe;
+  border-radius: 1rem;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.search-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px #a5b4fc;
+}
+
+.dropdown {
+  position: fixed;
+  display: inline-block;
+   top: 2rem;
+  left: 0rem;
+  z-index: 1200;
+
+
+}
+
+.dropbtn {
+  background: linear-gradient(90deg, #ef4444 0%, #818cf8 100%);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 1.5rem;
+  cursor: pointer;
+}
+
+.dropdown-content {
+   display: none;
+  position: absolute;
+  top: 0;
+  left: 100%; /* Place la liste à droite du bouton */
+  background-color: #fff;
+  min-width: 180px;
+  box-shadow: 0 8px 16px 0 rgba(79, 70, 229, 0.10);
+  border-radius: 1rem;
+  z-index: 999;
+  margin-left: 0.5rem; /* petit espace entre bouton et menu */
+}
+
+
+.dropdown-content a {
+  color: black;
+  padding: 1rem 1.2rem;
+  text-decoration: none;
+  display: block;
+  border-radius: 1rem;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f5f9;
+}
+
+.dropbtn:hover + .dropdown-content,
+.dropdown-content:hover {
+  display: block;
+}
+/* Responsive mobile */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  .form-container {
+    position: relative;
+    width: 100%;
+    margin-top: 2rem;
+  }
+
+  .sign-in-container,
+  .sign-up-container {
+    width: 100%;
+    left: 0;
+    opacity: 1 !important;
+    z-index: 5;
+    transform: translateX(0) !important;
+  }
+
+  form {
+    padding: 0 2rem;
+  }
+
+  .bas {
+    margin-bottom: 2rem;
+  }
+}
