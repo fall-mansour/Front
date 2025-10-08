@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { environment } from '../../environnement';
+
 
 @Component({
   selector: 'app-pubaides',
@@ -132,7 +134,7 @@ export class PubaidesComponent implements OnInit {
 
   updateSelectedImage(): void {
     this.selectedImage = this.sanitizer.bypassSecurityTrustUrl(
-      'http://localhost:3000/uploads/' + this.images[this.currentImageIndex]
+  `${environment.apiUrl.replace('/api','')}/uploads/${this.images[this.currentImageIndex]
     );
   }
 
