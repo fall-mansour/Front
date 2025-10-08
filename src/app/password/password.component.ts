@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { NgIf, NgClass, UpperCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../environnement'; // <-- ajouté
 
 @Component({
   selector: 'app-password',
@@ -51,7 +52,7 @@ export class PasswordComponent {
     }
 
     this.http.post<{ message: string; error?: string }>(
-      'http://localhost:3000/api/password/reset-password',
+      `${environment.apiUrl}/password/reset-password`,
       {
         mail: this.email.trim().toLowerCase(),
         password: this.newPassword,
