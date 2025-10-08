@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../environnement'; // <-- ajouté
 
 @Component({
   selector: 'app-ajout-ventes',
@@ -17,7 +18,6 @@ export class AjoutVentesComponent {
   prix: number | null = null;
   categorie = '';
 
-  // 📂 fichiers images
   image: File | null = null;
   image1: File | null = null;
   image2: File | null = null;
@@ -28,7 +28,6 @@ export class AjoutVentesComponent {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  // 📂 Choix d’une image
   onFileChange(event: any, field: string) {
     if (event.target.files && event.target.files.length > 0) {
       if (field === 'image') this.image = event.target.files[0];
@@ -37,7 +36,6 @@ export class AjoutVentesComponent {
     }
   }
 
-  // ➕ Ajouter une vente
   ajouterVente() {
     this.messageSuccess = '';
     this.messageErreur = '';
@@ -69,17 +67,16 @@ export class AjoutVentesComponent {
     if (this.image1) formData.append('image1', this.image1);
     if (this.image2) formData.append('image2', this.image2);
 
-    this.http.post('http://localhost:3000/api/ventes/ajout-vente', formData)
+    this.http.post(`${environment.apiUrl}/ventes/ajout-vente`, formData)
       .subscribe({
         next: (res: any) => {
           this.isLoading = false;
           this.messageSuccess = '✅ Vente ajoutée avec succès !';
           console.log('Vente ajoutée', res);
 
-          // ⏱ délai avant redirection pour voir le message
           setTimeout(() => {
             this.router.navigate(['/pubventes']);
-          }, 1500); // 1,5 sec
+          }, 1500);
         },
         error: (err) => {
           this.isLoading = false;
