@@ -116,10 +116,10 @@ nextImage(): void {
   this.updateSelectedImage();
 }
 
+  updateSelectedImage(): void {
+  this.selectedImage = this.sanitizer.bypassSecurityTrustUrl(
+    `${environment.apiUrl.replace('/api','')}/uploads/${this.images[this.currentImageIndex]}`
+  );
+}
 
-   updateSelectedImage(): void {
-    this.selectedImage = this.sanitizer.bypassSecurityTrustUrl(
-      'http://localhost:3000/uploads/' + this.images[this.currentImageIndex]
-    );
-  }
 }
