@@ -4,13 +4,14 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { environment } from '../../environnement'; // <-- ajouté
 
 @Component({
   selector: 'app-compte',
   standalone: true,
   templateUrl: './compte.component.html',
   styleUrls: ['./compte.component.scss'],
-  imports: [FormsModule,NgIf]
+  imports: [FormsModule, NgIf]
 })
 export class CompteComponent {
   formData = {
@@ -49,7 +50,7 @@ export class CompteComponent {
 
     this.isLoading = true;
 
-    this.http.post('http://localhost:3000/api/compte/creer', this.formData).subscribe({
+    this.http.post(`${environment.apiUrl}/compte/creer`, this.formData).subscribe({
       next: (response: any) => {
         this.isLoading = false;
         this.successMessage = 'Compte créé avec succès! Redirection...';
@@ -71,4 +72,3 @@ export class CompteComponent {
     });
   }
 }
-
