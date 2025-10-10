@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { environment } from '../../environnement';
 
-// ... imports identiques
 @Component({
   selector: 'app-pubaides',
   standalone: true,
@@ -26,7 +25,7 @@ export class PubaidesComponent implements OnInit {
   categorieSelectionnee: string = 'toutes';
   statutUtilisateur = '';
 
-  // Modale / Carrousel
+  // === Modale / Carrousel
   showModal = false;
   images: string[] = [];
   currentImageIndex: number = 0;
@@ -60,19 +59,18 @@ export class PubaidesComponent implements OnInit {
 
     this.aidesService.getAides(cat).subscribe({
       next: data => {
-        // Préfixer toutes les images avec l'URL du backend
         const aidesAvecImages = data.map(obj => ({
           ...obj,
-          image: obj.image ? `${environment.apiUrl.replace('/api','')}/uploads/${obj.image}` : null,
-          image1: obj.image1 ? `${environment.apiUrl.replace('/api','')}/uploads/${obj.image1}` : null,
-          image2: obj.image2 ? `${environment.apiUrl.replace('/api','')}/uploads/${obj.image2}` : null
+          image: obj.image ? `${environment.apiUrl.replace('/api','')}/uploads/${obj.image}` : '',
+          image1: obj.image1 ? `${environment.apiUrl.replace('/api','')}/uploads/${obj.image1}` : '',
+          image2: obj.image2 ? `${environment.apiUrl.replace('/api','')}/uploads/${obj.image2}` : ''
         }));
-        // Exclure les objets déjà acquis
+
         this.aides = aidesAvecImages.filter(obj => !this.acquisitions.some(a => a.id === obj.id));
         this.loading = false;
       },
       error: err => {
-        console.error('Erreur chargement aides:', err);
+        console.error(err);
         this.errorMsg = 'Erreur lors du chargement des objets aides.';
         this.loading = false;
       }
@@ -87,9 +85,7 @@ export class PubaidesComponent implements OnInit {
   }
 
   getObjetsFiltres(): ObjetAide[] {
-    return this.aides.filter(obj =>
-      !this.searchTerm || obj.description.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
+    return this.aides.filter(obj => !this.searchTerm || obj.description.toLowerCase().includes(this.searchTerm.toLowerCase()));
   }
 
   filtrerCategorie(categorie: string): void {
@@ -107,6 +103,7 @@ export class PubaidesComponent implements OnInit {
     if (obj.image) this.images.push(obj.image);
     if (obj.image1 && obj.image1 !== obj.image) this.images.push(obj.image1);
     if (obj.image2 && obj.image2 !== obj.image) this.images.push(obj.image2);
+
     this.currentImageIndex = 0;
     this.updateSelectedImage();
     this.showModal = true;
@@ -130,10 +127,6 @@ export class PubaidesComponent implements OnInit {
 
   updateSelectedImage(): void {
     if (!this.images.length) return;
-    this.selectedImage = this.sanitizer.bypassSecurityTrustUrl(
-      this.images[this.currentImageIndex]
-    );
+    this.selectedImage = this.sanitizer.bypassSecurityTrustUrl(this.images[this.currentImageIndex]);
   }
 }
-
-
