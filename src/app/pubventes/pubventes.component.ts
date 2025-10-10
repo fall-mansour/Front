@@ -19,11 +19,11 @@ export class PubventesComponent implements OnInit {
   categories: string[] = [];
   loading = true;
   errorMsg = '';
-  searchTerm = '';
+  searchTerm: string = '';
   categorieSelectionnee: string = 'toutes';
   statutUtilisateur: string = '';
 
-  // === Modale / Carrousel
+  // ===== Modale & carrousel =====
   showModal = false;
   images: string[] = [];
   currentImageIndex: number = 0;
@@ -44,26 +44,19 @@ export class PubventesComponent implements OnInit {
     this.chargerVentes();
   }
 
-  // ===== CHARGEMENT =====
+  // ======= CHARGEMENT =======
   chargerVentes(): void {
     this.loading = true;
     const cat = this.categorieSelectionnee === 'toutes' ? '' : this.categorieSelectionnee;
-
     this.ventesService.getVentes(cat).subscribe({
       next: data => {
-        // Forcer les images à string pour TS
-        this.ventes = data.map(v => ({
-          ...v,
-          image: v.image ? `${environment.apiUrl.replace('/api','')}/uploads/${v.image}` : '',
-          image1: v.image1 ? `${environment.apiUrl.replace('/api','')}/uploads/${v.image1}` : '',
-          image2: v.image2 ? `${environment.apiUrl.replace('/api','')}/uploads/${v.image2}` : ''
-        }));
+        this.ventes = data.map(this.normalizeImages); // <-- Normalisation ici
         this.loading = false;
       },
       error: err => {
-        console.error(err);
         this.errorMsg = 'Erreur lors du chargement des ventes.';
         this.loading = false;
+        console.error(err);
       }
     });
   }
@@ -75,26 +68,31 @@ export class PubventesComponent implements OnInit {
     });
   }
 
+  // ======= FILTRAGE =======
   filtrerCategorie(categorie: string): void {
     this.categorieSelectionnee = categorie;
     this.chargerVentes();
   }
 
   getObjetsFiltres(): ObjetVente[] {
-    return this.ventes.filter(obj => !this.searchTerm || obj.description.toLowerCase().includes(this.searchTerm.toLowerCase()));
+    return this.ventes.filter(obj => {
+      const matchRecherche = !this.searchTerm || obj.description.toLowerCase().includes(this.searchTerm.toLowerCase());
+      return matchRecherche;
+    });
   }
 
   redirigercompte(): void {
     this.router.navigate(['/infoscompte']);
   }
 
-  // === MODALE / CARROUSEL ===
+  // ======= MODALE CARROUSEL =======
   ouvrirDetails(obj: ObjetVente): void {
     this.selectedObjet = obj;
     this.images = [];
+
     if (obj.image) this.images.push(obj.image);
-    if (obj.image1 && obj.image1.trim() !== '') this.images.push(obj.image1);
-    if (obj.image2 && obj.image2.trim() !== '') this.images.push(obj.image2);
+    if (obj.image1) this.images.push(obj.image1);
+    if (obj.image2) this.images.push(obj.image2);
 
     this.currentImageIndex = 0;
     this.updateSelectedImage();
@@ -119,6 +117,21 @@ export class PubventesComponent implements OnInit {
 
   updateSelectedImage(): void {
     if (!this.images.length) return;
-    this.selectedImage = this.sanitizer.bypassSecurityTrustUrl(this.images[this.currentImageIndex]);
+    this.selectedImage = this.sanitizer.bypassSecurityTrustUrl(
+      `${environment.apiUrl.replace('/api','')}/uploads/${this.images[this.currentImageIndex]}`
+    );
+  }
+
+  // ======= UTILITAIRE =======
+  private normalizeImages(obj: any): ObjetVente {
+    return {
+      ...obj,
+      image: obj.image || '',
+      image1: obj.image1 || '',
+      image2: obj.image2 || '',
+      vendeurNom: obj.vendeurNom || '',
+      vendeurNumero: obj.vendeurNumero || '',
+      adresse: obj.adresse || ''
+    };
   }
 }
