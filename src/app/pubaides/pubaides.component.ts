@@ -19,16 +19,17 @@ export class PubaidesComponent implements OnInit {
   categories: string[] = [];
   acquisitions: ObjetAide[] = [];
 
+  // UI state
   loading = true;
   errorMsg = '';
   searchTerm = '';
   categorieSelectionnee: string = 'toutes';
   statutUtilisateur = '';
 
-  // === Modale / Carrousel
+  // === Modale / Carousel ===
   showModal = false;
   images: string[] = [];
-  currentImageIndex: number = 0;
+  currentImageIndex = 0;
   selectedImage!: SafeUrl;
   selectedObjet!: ObjetAide;
 
@@ -44,6 +45,7 @@ export class PubaidesComponent implements OnInit {
     this.chargerAides();
   }
 
+  /** Initialisation utilisateur et acquisitions */
   private initUtilisateur(): void {
     const utilisateur = JSON.parse(localStorage.getItem('utilisateur') || 'null');
     this.statutUtilisateur = utilisateur?.statut?.toLowerCase() || '';
@@ -53,30 +55,28 @@ export class PubaidesComponent implements OnInit {
     this.acquisitions = acquisitionsStr ? JSON.parse(acquisitionsStr) : [];
   }
 
+  /** Charger la liste des aides */
   private chargerAides(): void {
     this.loading = true;
     const cat = this.categorieSelectionnee === 'toutes' ? '' : this.categorieSelectionnee;
 
     this.aidesService.getAides(cat).subscribe({
       next: data => {
-        const aidesAvecImages = data.map(obj => ({
-          ...obj,
-          image: obj.image ? `${environment.apiUrl.replace('/api','')}/uploads/${obj.image}` : '',
-          image1: obj.image1 ? `${environment.apiUrl.replace('/api','')}/uploads/${obj.image1}` : '',
-          image2: obj.image2 ? `${environment.apiUrl.replace('/api','')}/uploads/${obj.image2}` : ''
-        }));
-
+        // Normaliser les images pour éviter null
+        const aidesAvecImages = data.map(this.normalizeImagesAide);
+        // Exclure les objets déjà acquis
         this.aides = aidesAvecImages.filter(obj => !this.acquisitions.some(a => a.id === obj.id));
         this.loading = false;
       },
       error: err => {
-        console.error(err);
+        console.error('Erreur chargement aides:', err);
         this.errorMsg = 'Erreur lors du chargement des objets aides.';
         this.loading = false;
       }
     });
   }
 
+  /** Charger les catégories disponibles */
   private chargerCategories(): void {
     this.aidesService.getCategories().subscribe({
       next: cats => (this.categories = cats),
@@ -84,25 +84,33 @@ export class PubaidesComponent implements OnInit {
     });
   }
 
+  /** Filtrer les objets par recherche */
   getObjetsFiltres(): ObjetAide[] {
-    return this.aides.filter(obj => !this.searchTerm || obj.description.toLowerCase().includes(this.searchTerm.toLowerCase()));
+    return this.aides.filter(obj =>
+      !this.searchTerm ||
+      obj.description.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 
+  /** Filtrage par catégorie */
   filtrerCategorie(categorie: string): void {
     this.categorieSelectionnee = categorie;
     this.chargerAides();
   }
 
+  /** Redirection vers infos compte */
   redirigercompte(): void {
     this.router.navigate(['/infoscompte']);
   }
 
+  // === MODALE / CAROUSEL ===
   ouvrirDetails(obj: ObjetAide): void {
     this.selectedObjet = obj;
     this.images = [];
+
     if (obj.image) this.images.push(obj.image);
-    if (obj.image1 && obj.image1 !== obj.image) this.images.push(obj.image1);
-    if (obj.image2 && obj.image2 !== obj.image) this.images.push(obj.image2);
+    if (obj.image1) this.images.push(obj.image1);
+    if (obj.image2) this.images.push(obj.image2);
 
     this.currentImageIndex = 0;
     this.updateSelectedImage();
@@ -127,6 +135,18 @@ export class PubaidesComponent implements OnInit {
 
   updateSelectedImage(): void {
     if (!this.images.length) return;
-    this.selectedImage = this.sanitizer.bypassSecurityTrustUrl(this.images[this.currentImageIndex]);
+    this.selectedImage = this.sanitizer.bypassSecurityTrustUrl(
+      `${environment.apiUrl.replace('/api','')}/uploads/${this.images[this.currentImageIndex]}`
+    );
+  }
+
+  // ======= UTILITAIRE =======
+  private normalizeImagesAide(obj: any): ObjetAide {
+    return {
+      ...obj,
+      image: obj.image || '',
+      image1: obj.image1 || '',
+      image2: obj.image2 || ''
+    };
   }
 }
