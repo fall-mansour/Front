@@ -135,4 +135,9 @@ export class PubventesComponent implements OnInit {
     };
   }
 
+getImage(imageData: string): SafeUrl {
+  return this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + imageData);
+}
+
+
 }
