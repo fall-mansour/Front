@@ -50,7 +50,13 @@ export class PubventesComponent implements OnInit {
     const cat = this.categorieSelectionnee === 'toutes' ? '' : this.categorieSelectionnee;
     this.ventesService.getVentes(cat).subscribe({
       next: data => {
-        this.ventes = data;
+        // 🔥 Préfixe le chemin des images avec l'URL du backend
+        this.ventes = data.map(v => ({
+          ...v,
+          image: v.image ? `${environment.apiUrl.replace('/api','')}/uploads/${v.image}` : null,
+          image1: v.image1 ? `${environment.apiUrl.replace('/api','')}/uploads/${v.image1}` : null,
+          image2: v.image2 ? `${environment.apiUrl.replace('/api','')}/uploads/${v.image2}` : null,
+        }));
         this.loading = false;
       },
       error: err => {
@@ -87,39 +93,39 @@ export class PubventesComponent implements OnInit {
   }
 
   // ======= MODALE CARROUSEL =======
- ouvrirDetails(obj: ObjetVente): void {
-  this.selectedObjet = obj;
-  this.images = [];
+  ouvrirDetails(obj: ObjetVente): void {
+    this.selectedObjet = obj;
+    this.images = [];
 
-  if (obj.image) this.images.push(obj.image);
-  if (obj.image1 && obj.image1.trim() !== '') this.images.push(obj.image1);
-  if (obj.image2 && obj.image2.trim() !== '') this.images.push(obj.image2);
+    if (obj.image) this.images.push(obj.image);
+    if (obj.image1 && obj.image1.trim() !== '') this.images.push(obj.image1);
+    if (obj.image2 && obj.image2.trim() !== '') this.images.push(obj.image2);
 
-  this.currentImageIndex = 0;
-  this.updateSelectedImage();
-  this.showModal = true;
-}
-
+    this.currentImageIndex = 0;
+    this.updateSelectedImage();
+    this.showModal = true;
+  }
 
   fermerModale(): void {
     this.showModal = false;
   }
-prevImage(): void {
-  if (this.images.length <= 1) return; // ne rien faire si 1 seule image
-  this.currentImageIndex = (this.currentImageIndex - 1 + this.images.length) % this.images.length;
-  this.updateSelectedImage();
-}
 
-nextImage(): void {
-  if (this.images.length <= 1) return; // ne rien faire si 1 seule image
-  this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
-  this.updateSelectedImage();
-}
+  prevImage(): void {
+    if (this.images.length <= 1) return;
+    this.currentImageIndex = (this.currentImageIndex - 1 + this.images.length) % this.images.length;
+    this.updateSelectedImage();
+  }
+
+  nextImage(): void {
+    if (this.images.length <= 1) return;
+    this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+    this.updateSelectedImage();
+  }
 
   updateSelectedImage(): void {
-  this.selectedImage = this.sanitizer.bypassSecurityTrustUrl(
-    `${environment.apiUrl.replace('/api','')}/uploads/${this.images[this.currentImageIndex]}`
-  );
-}
-
+    // 🔥 Passe par bypassSecurityTrustUrl pour sécuriser le lien
+    this.selectedImage = this.sanitizer.bypassSecurityTrustUrl(
+      this.images[this.currentImageIndex]
+    );
+  }
 }
