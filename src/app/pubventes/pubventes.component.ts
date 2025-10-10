@@ -134,4 +134,9 @@ export class PubventesComponent implements OnInit {
       adresse: obj.adresse || ''
     };
   }
+
+getImage(imageData: string): SafeUrl {
+  return this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + imageData);
+}
+
 }
