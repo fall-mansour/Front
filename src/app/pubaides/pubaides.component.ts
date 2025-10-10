@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { environment } from '../../environnement';
 
+// ... imports identiques
 @Component({
   selector: 'app-pubaides',
   standalone: true,
@@ -19,14 +20,13 @@ export class PubaidesComponent implements OnInit {
   categories: string[] = [];
   acquisitions: ObjetAide[] = [];
 
-  // UI state
   loading = true;
   errorMsg = '';
   searchTerm = '';
   categorieSelectionnee: string = 'toutes';
   statutUtilisateur = '';
 
-  // === Modale / Carousel ===
+  // Modale / Carrousel
   showModal = false;
   images: string[] = [];
   currentImageIndex: number = 0;
@@ -45,7 +45,6 @@ export class PubaidesComponent implements OnInit {
     this.chargerAides();
   }
 
-  /** Initialisation utilisateur et acquisitions */
   private initUtilisateur(): void {
     const utilisateur = JSON.parse(localStorage.getItem('utilisateur') || 'null');
     this.statutUtilisateur = utilisateur?.statut?.toLowerCase() || '';
@@ -55,15 +54,21 @@ export class PubaidesComponent implements OnInit {
     this.acquisitions = acquisitionsStr ? JSON.parse(acquisitionsStr) : [];
   }
 
-  /** Charger la liste des aides */
   private chargerAides(): void {
     this.loading = true;
     const cat = this.categorieSelectionnee === 'toutes' ? '' : this.categorieSelectionnee;
 
     this.aidesService.getAides(cat).subscribe({
       next: data => {
+        // Préfixer toutes les images avec l'URL du backend
+        const aidesAvecImages = data.map(obj => ({
+          ...obj,
+          image: obj.image ? `${environment.apiUrl.replace('/api','')}/uploads/${obj.image}` : null,
+          image1: obj.image1 ? `${environment.apiUrl.replace('/api','')}/uploads/${obj.image1}` : null,
+          image2: obj.image2 ? `${environment.apiUrl.replace('/api','')}/uploads/${obj.image2}` : null
+        }));
         // Exclure les objets déjà acquis
-        this.aides = data.filter(obj => !this.acquisitions.some(a => a.id === obj.id));
+        this.aides = aidesAvecImages.filter(obj => !this.acquisitions.some(a => a.id === obj.id));
         this.loading = false;
       },
       error: err => {
@@ -74,7 +79,6 @@ export class PubaidesComponent implements OnInit {
     });
   }
 
-  /** Charger les catégories disponibles */
   private chargerCategories(): void {
     this.aidesService.getCategories().subscribe({
       next: cats => (this.categories = cats),
@@ -82,34 +86,27 @@ export class PubaidesComponent implements OnInit {
     });
   }
 
-  /** Filtrer les objets par recherche */
   getObjetsFiltres(): ObjetAide[] {
     return this.aides.filter(obj =>
-      !this.searchTerm ||
-      obj.description.toLowerCase().includes(this.searchTerm.toLowerCase())
+      !this.searchTerm || obj.description.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 
-  /** Filtrage par catégorie */
   filtrerCategorie(categorie: string): void {
     this.categorieSelectionnee = categorie;
     this.chargerAides();
   }
 
-  /** Redirection vers infos compte */
   redirigercompte(): void {
     this.router.navigate(['/infoscompte']);
   }
 
-  // === MODALE / CAROUSEL ===
   ouvrirDetails(obj: ObjetAide): void {
     this.selectedObjet = obj;
     this.images = [];
-
     if (obj.image) this.images.push(obj.image);
     if (obj.image1 && obj.image1 !== obj.image) this.images.push(obj.image1);
     if (obj.image2 && obj.image2 !== obj.image) this.images.push(obj.image2);
-
     this.currentImageIndex = 0;
     this.updateSelectedImage();
     this.showModal = true;
@@ -134,7 +131,9 @@ export class PubaidesComponent implements OnInit {
   updateSelectedImage(): void {
     if (!this.images.length) return;
     this.selectedImage = this.sanitizer.bypassSecurityTrustUrl(
-      `${environment.apiUrl.replace('/api','')}/uploads/${this.images[this.currentImageIndex]}`
+      this.images[this.currentImageIndex]
     );
   }
 }
+
+
