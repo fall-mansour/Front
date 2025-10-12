@@ -1,3 +1,8 @@
+/* RESET ET BASE RESPONSIVE */
+:host * {
+  box-sizing: border-box;
+}
+
 :host {
   display: flex;
   flex-direction: column;
@@ -5,87 +10,104 @@
   min-height: 100vh;
   background: linear-gradient(135deg, #e0e7ff 0%, #f1f5f9 100%);
   font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
-  padding-top: 4rem;
+  padding: 1rem;
+  padding-top: 5rem;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* TITRE */
 h2 {
   color: #4f46e5;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  margin-bottom: 2rem;
-  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.5px;
   text-shadow: 0 2px 6px rgba(79,70,229,0.3);
   text-align: center;
+  width: 100%;
+  padding: 0 1rem;
 }
 
 /* FORMULAIRE */
 form {
   background: #fff;
-  padding: 2.5rem 2rem;
-  border-radius: 2rem;
-  box-shadow: 0 12px 28px rgba(99, 102, 241, 0.12);
+  padding: 2rem 1.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.12);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
   width: 100%;
   max-width: 400px;
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 16px 36px rgba(99, 102, 241, 0.18);
-  }
+form:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(99, 102, 241, 0.18);
+}
+
+/* GROUPES DE CHAMPS */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
 }
 
 /* LABELS */
 label {
   font-weight: 600;
   color: #6366f1;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  margin-bottom: 0.3rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+  margin-bottom: 0.2rem;
 }
 
 /* INPUTS */
 input[type="text"],
 input[type="email"],
 select {
-  padding: 0.9rem 1.2rem;
+  padding: 0.8rem 1rem;
   border: 1.5px solid #c7d2fe;
-  border-radius: 1rem;
+  border-radius: 0.8rem;
   font-size: 1rem;
   background: #f1f5f9;
   transition: all 0.25s ease;
   outline: none;
+  width: 100%;
+}
 
-  &:focus {
-    border: 1.5px solid #6366f1;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-  }
+input[type="text"]:focus,
+input[type="email"]:focus,
+select:focus {
+  border: 1.5px solid #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
 }
 
 /* BOUTON SUBMIT */
 button[type="submit"] {
   width: 100%;
-  padding: 1rem 0;
-  font-size: 1.15rem;
+  padding: 0.9rem 0;
+  font-size: 1.1rem;
   font-weight: 700;
   border: none;
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   background: linear-gradient(90deg, #ef4444 0%, #818cf8 100%);
   color: #fff;
   cursor: pointer;
   transition: all 0.3s ease;
-  letter-spacing: 1px;
-  box-shadow: 0 6px 20px rgba(99,102,241,0.18);
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 16px rgba(99,102,241,0.18);
+  margin-top: 0.5rem;
+}
 
-  &:hover {
-    background: linear-gradient(90deg, #818cf8 0%, #6366f1 100%);
-    transform: scale(1.05) translateY(-2px);
-    box-shadow: 0 12px 28px rgba(99,102,241,0.25);
-  }
+button[type="submit"]:hover {
+  background: linear-gradient(90deg, #818cf8 0%, #6366f1 100%);
+  transform: scale(1.02) translateY(-1px);
+  box-shadow: 0 8px 24px rgba(99,102,241,0.25);
 }
 
 /* MESSAGES SUCCESS / ERROR */
@@ -93,24 +115,28 @@ button[type="submit"] {
   color: #22c55e;
   font-weight: 600;
   text-align: center;
-  padding: 0.5rem 0;
-  border-radius: 1rem;
+  padding: 0.8rem;
+  border-radius: 0.8rem;
   background: rgba(34,197,94,0.1);
+  font-size: 0.9rem;
+  width: 100%;
 }
 
 .error {
   color: #ef4444;
   font-weight: 600;
   text-align: center;
-  padding: 0.5rem 0;
-  border-radius: 1rem;
+  padding: 0.8rem;
+  border-radius: 0.8rem;
   background: rgba(239,68,68,0.1);
+  font-size: 0.9rem;
+  width: 100%;
 }
 
 /* MENU DÉROULANT */
 .dropdown {
   position: fixed;
-  top: 2rem;
+  top: 1.5rem;
   left: 1rem;
   z-index: 1200;
 }
@@ -118,38 +144,41 @@ button[type="submit"] {
 .dropbtn {
   background: linear-gradient(90deg, #ef4444 0%, #818cf8 100%);
   color: #fff;
-  padding: 0.8rem 1.5rem;
-  font-size: 1.1rem;
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
   border: none;
-  border-radius: 1.5rem;
+  border-radius: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  white-space: nowrap;
+}
 
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 24px rgba(99,102,241,0.3);
-  }
+.dropbtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(99,102,241,0.3);
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  top: 0;
-  left: 105%;
+  top: 100%;
+  left: 0;
   background: #fff;
-  min-width: 180px;
-  border-radius: 1rem;
-  box-shadow: 0 12px 28px rgba(79,70,229,0.12);
-  margin-left: 0.5rem;
+  min-width: 160px;
+  border-radius: 0.8rem;
+  box-shadow: 0 8px 24px rgba(79,70,229,0.12);
+  margin-top: 0.5rem;
   transition: all 0.3s ease;
 }
 
 .dropdown-content a {
   color: black;
-  padding: 0.9rem 1.2rem;
+  padding: 0.8rem 1rem;
   display: block;
-  border-radius: 1rem;
+  border-radius: 0.8rem;
   transition: background 0.2s;
+  font-size: 0.9rem;
+  text-decoration: none;
 }
 
 .dropdown-content a:hover {
@@ -163,61 +192,192 @@ button[type="submit"] {
 
 /* ANIMATION MENU */
 @keyframes slideIn {
-  0% { opacity: 0; transform: translateX(-10px); }
-  100% { opacity: 1; transform: translateX(0); }
+  0% { 
+    opacity: 0; 
+    transform: translateY(-10px); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
 }
 
-/* RESPONSIVE */
-@media (max-width: 600px) {
-  form {
-    max-width: 95vw;
-    padding: 1.5rem 1rem;
+/* RESPONSIVE MOBILE - PETITS ÉCRANS */
+@media (max-width: 480px) {
+  :host {
+    padding-top: 4rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
-
+  
   h2 {
     font-size: 1.5rem;
+    margin-bottom: 1rem;
   }
-
+  
+  form {
+    max-width: 100%;
+    padding: 1.5rem 1rem;
+    border-radius: 1.2rem;
+    gap: 1rem;
+  }
+  
+  .form-group {
+    gap: 0.4rem;
+  }
+  
+  label {
+    font-size: 0.9rem;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  select {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.95rem;
+    border-radius: 0.7rem;
+  }
+  
+  button[type="submit"] {
+    padding: 0.8rem 0;
+    font-size: 1rem;
+    border-radius: 1.2rem;
+  }
+  
+  /* Dropdown mobile */
+  .dropdown {
+    top: 1rem;
+    left: 0.5rem;
+  }
+  
   .dropbtn {
     padding: 0.6rem 1rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
+    border-radius: 1rem;
   }
-
+  
   .dropdown-content {
     min-width: 140px;
-    left: auto;
-    right: 0;
+    left: 0;
+    right: auto;
+  }
+  
+  .success,
+  .error {
+    font-size: 0.85rem;
+    padding: 0.7rem;
   }
 }
 
-/* Responsive mobile */
+/* RESPONSIVE TABLETTE */
 @media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    width: 100%;
-    min-height: 100vh;
+  :host {
+    padding-top: 4.5rem;
   }
-
-  .form-container {
-    position: relative;
-    width: 100%;
-    margin-top: 2rem;
-  }
-
-  .sign-in-container,
-  .sign-up-container {
-    width: 100%;
-    left: 0;
-    opacity: 1 !important;
-    z-index: 5;
-    transform: translateX(0) !important;
-  }
-
+  
   form {
-    padding: 0 2rem;
+    max-width: 95%;
+    margin: 0 auto;
   }
+  
+  .dropdown {
+    top: 1rem;
+    left: 1rem;
+  }
+  
+  .dropdown-content {
+    left: 0;
+    right: auto;
+  }
+}
 
-  .bas {
-    margin-bottom: 2rem;
+/* RESPONSIVE TRÈS PETITS ÉCRANS */
+@media (max-width: 360px) {
+  :host {
+    padding-top: 3.5rem;
   }
+  
+  h2 {
+    font-size: 1.3rem;
+  }
+  
+  form {
+    padding: 1.2rem 0.8rem;
+    border-radius: 1rem;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  select {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  button[type="submit"] {
+    padding: 0.7rem 0;
+    font-size: 0.95rem;
+  }
+  
+  .dropbtn {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* RESPONSIVE GRANDS ÉCRANS */
+@media (min-width: 1200px) {
+  :host {
+    padding-top: 6rem;
+  }
+  
+  form {
+    max-width: 450px;
+    padding: 2.5rem 2rem;
+  }
+  
+  h2 {
+    font-size: 2.2rem;
+  }
+}
+
+/* AMÉLIORATIONS ACCESSIBILITE */
+input[type="text"]:focus-visible,
+input[type="email"]:focus-visible,
+select:focus-visible,
+button[type="submit"]:focus-visible,
+.dropbtn:focus-visible {
+  outline: 2px solid #4f46e5;
+  outline-offset: 2px;
+}
+
+/* ÉTATS DE CHARGEMENT */
+button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ANIMATION DE CHARGEMENT */
+.loading {
+  position: relative;
+  color: transparent;
+}
+
+.loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
