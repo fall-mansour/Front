@@ -569,3 +569,116 @@ button:hover {
     margin-top: 10rem;
   }
 }
+
+/* CORRECTIONS MOBILE ESSENTIELLES - À AJOUTER À LA FIN */
+
+@media (max-width: 768px) {
+  /* Header priorité maximale */
+  header {
+    z-index: 2000;
+    width: 95%;
+    max-width: 95vw;
+  }
+  
+  /* Réorganisation spatiale - empilement vertical */
+  .side-tab {
+    top: 5rem;
+    left: 1rem;
+    z-index: 1900;
+  }
+  
+  .dropdown {
+    top: 5rem;
+    left: 1rem;
+    z-index: 1900;
+  }
+  
+  .dropdowncat {
+    top: 8rem; /* Espace avec le menu principal */
+    left: 1rem;
+    z-index: 1900;
+  }
+  
+  .search-bar {
+    top: 5rem;
+    right: 1rem;
+    z-index: 1900;
+    max-width: 180px;
+  }
+  
+  /* Dropdowns pleine largeur mobile */
+  .dropdown-content {
+    position: fixed;
+    top: 7rem;
+    left: 1rem;
+    right: 1rem;
+    width: auto;
+    min-width: auto;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+  
+  .dropdowncat-content {
+    position: fixed;
+    top: 10rem;
+    left: 1rem;
+    right: 1rem;
+    width: auto;
+    min-width: auto;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+  
+  /* Taille tactile minimale */
+  .dropbtn, .dropbtncat, .compte, button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .search-bar input {
+    min-height: 44px;
+    font-size: 16px; /* Anti-zoom iOS */
+  }
+  
+  /* Bouton pleine largeur */
+  .publication-actions button {
+    width: 100%;
+  }
+}
+
+/* Très petits écrans */
+@media (max-width: 480px) {
+  .side-tab,
+  .dropdown,
+  .search-bar {
+    top: 4.5rem;
+  }
+  
+  .dropdowncat {
+    top: 7.5rem;
+  }
+  
+  .dropdown-content {
+    top: 6.5rem;
+  }
+  
+  .dropdowncat-content {
+    top: 9.5rem;
+  }
+  
+  .search-bar {
+    max-width: 150px;
+  }
+  
+  .search-bar input {
+    width: 80px;
+  }
+}
+
+/* Scroll iOS fluide */
+@media (max-width: 768px) {
+  .dropdown-content,
+  .dropdowncat-content {
+    -webkit-overflow-scrolling: touch;
+  }
+}
