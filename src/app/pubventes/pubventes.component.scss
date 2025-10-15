@@ -1,4 +1,3 @@
-
 /* RESET ET BASE RESPONSIVE */
 * {
   box-sizing: border-box;
@@ -397,15 +396,15 @@ button:hover {
   /* Header */
   header {
     width: 95%;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     padding: 0.8rem 0;
     border-radius: 0.8rem;
   }
-  
+
   .main-content {
     margin-top: 6rem;
   }
-  
+
   /* Publication */
   .publication {
     flex-direction: column;
@@ -415,91 +414,91 @@ button:hover {
     gap: 1rem;
     margin: 1rem auto;
   }
-  
+
   .publication .image {
     align-self: center;
   }
-  
+
   .publication .image img {
     width: 100px;
     height: 100px;
   }
-  
+
   .publication-actions {
     margin-left: 0;
     align-items: stretch;
     margin-top: 1rem;
   }
-  
+
   button {
     width: 100%;
     font-size: 1rem;
     padding: 0.8rem 1.2rem;
   }
-  
+
   /* Éléments fixes */
   .side-tab {
     top: 1rem;
     left: 1rem;
   }
-  
+
   .dropdown {
     top: 1rem;
     left: 0.8rem;
   }
-  
+
   .dropdowncat {
     top: 1rem;
     left: 0.3rem;
   }
-  
+
   .search-bar {
     top: 1rem;
     right: 1rem;
     max-width: 250px;
     padding: 0.5rem 0.8rem;
   }
-  
+
   .search-bar input {
     width: 120px;
     font-size: 0.9rem;
     padding: 0.4rem 0.6rem;
   }
-  
+
   .search-bar button {
     min-width: 70px;
     padding: 0.4rem 0.8rem;
     font-size: 0.9rem;
   }
-  
+
   /* Meta informations */
   .meta {
     flex-direction: column;
     gap: 0.5rem;
   }
-  
+
   .donateur {
     flex-direction: column;
     gap: 0.5rem;
     align-items: flex-start;
   }
-  
+
   /* Textes */
   .infos-objet h3 {
     font-size: 1.1rem;
   }
-  
+
   .meta, .donateur {
     font-size: 0.9rem;
   }
-  
+
   /* Modal */
   .modal-content {
     max-width: 95%;
     max-height: 95%;
     padding: 5px;
   }
-  
+
   .close {
     font-size: 1.5rem;
     top: 3px;
@@ -510,50 +509,51 @@ button:hover {
 /* RESPONSIVE TRÈS PETITS ÉCRANS */
 @media (max-width: 480px) {
   header {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     padding: 0.6rem 0;
-    
+    background-color: black;
+    color: white;
   }
-  
+
   .main-content {
     margin-top: 5rem;
   }
-  
+
   .publication {
     padding: 0.8rem;
     margin: 0.8rem auto;
     border-radius: 0.8rem;
   }
-  
+
   .publication .image img {
     width: 80px;
     height: 80px;
   }
-  
+
   .infos-objet h3 {
     font-size: 1rem;
   }
-  
+
   .meta, .donateur {
     font-size: 0.85rem;
   }
-  
+
   /* Cacher certains éléments si nécessaire */
   .search-bar {
     max-width: 200px;
   }
-  
+
   .search-bar input {
     width: 100px;
     font-size: 0.85rem;
   }
-  
+
   /* Dropdowns plus compacts */
   .dropbtn, .dropbtncat {
     padding: 0.5rem 0.8rem;
     font-size: 0.9rem;
   }
-  
+
   .dropdown-content, .dropdowncat-content {
     min-width: 140px;
   }
@@ -564,121 +564,8 @@ button:hover {
   .publication {
     max-width: 880px;
   }
-  
+
   .main-content {
     margin-top: 10rem;
-  }
-}
-
-/* CORRECTIONS MOBILE ESSENTIELLES - À AJOUTER À LA FIN */
-
-@media (max-width: 768px) {
-  /* Header priorité maximale */
-  header {
-    z-index: 2000;
-    width: 95%;
-    max-width: 95vw;
-  }
-  
-  /* Réorganisation spatiale - empilement vertical */
-  .side-tab {
-    top: 5rem;
-    left: 1rem;
-    z-index: 1900;
-  }
-  
-  .dropdown {
-    top: 5rem;
-    left: 1rem;
-    z-index: 1900;
-  }
-  
-  .dropdowncat {
-    top: 8rem; /* Espace avec le menu principal */
-    left: 1rem;
-    z-index: 1900;
-  }
-  
-  .search-bar {
-    top: 5rem;
-    right: 1rem;
-    z-index: 1900;
-    max-width: 180px;
-  }
-  
-  /* Dropdowns pleine largeur mobile */
-  .dropdown-content {
-    position: fixed;
-    top: 7rem;
-    left: 1rem;
-    right: 1rem;
-    width: auto;
-    min-width: auto;
-    max-height: 60vh;
-    overflow-y: auto;
-  }
-  
-  .dropdowncat-content {
-    position: fixed;
-    top: 10rem;
-    left: 1rem;
-    right: 1rem;
-    width: auto;
-    min-width: auto;
-    max-height: 50vh;
-    overflow-y: auto;
-  }
-  
-  /* Taille tactile minimale */
-  .dropbtn, .dropbtncat, .compte, button {
-    min-height: 44px;
-    min-width: 44px;
-  }
-  
-  .search-bar input {
-    min-height: 44px;
-    font-size: 16px; /* Anti-zoom iOS */
-  }
-  
-  /* Bouton pleine largeur */
-  .publication-actions button {
-    width: 100%;
-  }
-}
-
-/* Très petits écrans */
-@media (max-width: 480px) {
-  .side-tab,
-  .dropdown,
-  .search-bar {
-    top: 4.5rem;
-  }
-  
-  .dropdowncat {
-    top: 7.5rem;
-  }
-  
-  .dropdown-content {
-    top: 6.5rem;
-  }
-  
-  .dropdowncat-content {
-    top: 9.5rem;
-  }
-  
-  .search-bar {
-    max-width: 150px;
-  }
-  
-  .search-bar input {
-    width: 80px;
-  }
-}
-
-/* Scroll iOS fluide */
-@media (max-width: 768px) {
-  .dropdown-content,
-  .dropdowncat-content {
-    -webkit-overflow-scrolling: touch;
   }
 }
