@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://backend-78k9.onrender.com/api'
+  apiUrl: 'satisfied-addi-falltech-d6156039.koyeb.app/'
 };
