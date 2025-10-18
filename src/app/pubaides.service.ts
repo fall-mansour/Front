@@ -26,14 +26,13 @@ export class PubaidesService {
   constructor(private http: HttpClient) {}
 
   /** Transforme un nom de fichier en URL complète */
-  private getImageUrl(imageName?: string): string | null {
-    if (!imageName) return null;
+  private getImageUrl(imageName?: string): string {
+    if (!imageName) return '';
     return imageName.startsWith('http') 
       ? imageName 
       : `${environment.apiUrl}/uploads/${imageName}`;
   }
 
-  /** Récupérer tous les objets aides, optionnellement filtrés par catégorie */
   getAides(categorie: string = 'toutes'): Observable<ObjetAide[]> {
     let params = new HttpParams();
     if (categorie && categorie !== 'toutes') {
@@ -49,17 +48,14 @@ export class PubaidesService {
     );
   }
 
-  /** Supprimer un objet d’aide par son ID */
   deleteObjetAide(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
-  /** Récupérer un objet d’aide spécifique par son ID */
   getAideById(id: number): Observable<ObjetAide> {
     return this.http.get<ObjetAide>(`${this.apiUrl}/${id}`);
   }
 
-  /** Récupérer toutes les catégories disponibles */
   getCategories(): Observable<string[]> {
     return this.http.get<string[]>(`${this.apiUrl}/categories`);
   }
