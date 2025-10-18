@@ -4,8 +4,6 @@ import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { environment } from '../../environnement';
 
 @Component({
   selector: 'app-pubventes',
@@ -27,13 +25,12 @@ export class PubventesComponent implements OnInit {
   showModal = false;
   images: string[] = [];
   currentImageIndex: number = 0;
-  selectedImage!: SafeUrl;
+  selectedImage: string = '';
   selectedObjet!: ObjetVente;
 
   constructor(
     private ventesService: PubventesService,
-    private router: Router,
-    private sanitizer: DomSanitizer
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -87,39 +84,37 @@ export class PubventesComponent implements OnInit {
   }
 
   // ======= MODALE CARROUSEL =======
- ouvrirDetails(obj: ObjetVente): void {
-  this.selectedObjet = obj;
-  this.images = [];
+  ouvrirDetails(obj: ObjetVente): void {
+    this.selectedObjet = obj;
+    this.images = [];
 
-  if (obj.image) this.images.push(obj.image);
-  if (obj.image1 && obj.image1.trim() !== '') this.images.push(obj.image1);
-  if (obj.image2 && obj.image2.trim() !== '') this.images.push(obj.image2);
+    if (obj.image) this.images.push(obj.image);
+    if (obj.image1 && obj.image1.trim() !== '') this.images.push(obj.image1);
+    if (obj.image2 && obj.image2.trim() !== '') this.images.push(obj.image2);
 
-  this.currentImageIndex = 0;
-  this.updateSelectedImage();
-  this.showModal = true;
-}
-
+    this.currentImageIndex = 0;
+    this.updateSelectedImage();
+    this.showModal = true;
+  }
 
   fermerModale(): void {
     this.showModal = false;
   }
-prevImage(): void {
-  if (this.images.length <= 1) return; // ne rien faire si 1 seule image
-  this.currentImageIndex = (this.currentImageIndex - 1 + this.images.length) % this.images.length;
-  this.updateSelectedImage();
-}
 
-nextImage(): void {
-  if (this.images.length <= 1) return; // ne rien faire si 1 seule image
-  this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
-  this.updateSelectedImage();
-}
+  prevImage(): void {
+    if (this.images.length <= 1) return;
+    this.currentImageIndex = (this.currentImageIndex - 1 + this.images.length) % this.images.length;
+    this.updateSelectedImage();
+  }
 
+  nextImage(): void {
+    if (this.images.length <= 1) return;
+    this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+    this.updateSelectedImage();
+  }
 
-   updateSelectedImage(): void {
-    this.selectedImage = this.sanitizer.bypassSecurityTrustUrl(
-      'http://localhost:3000/uploads/' + this.images[this.currentImageIndex]
-    );
+  updateSelectedImage(): void {
+    // 🔹 Utilisation directe de l'URL Cloudinary
+    this.selectedImage = this.images[this.currentImageIndex];
   }
 }
