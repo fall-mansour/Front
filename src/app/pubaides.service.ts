@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from '../environnement';
 
 export interface ObjetAide {
@@ -8,8 +8,8 @@ export interface ObjetAide {
   description: string;
   quantite: number;
   image: string;
-  image1:string,
-  image2:string,
+  image1?: string;
+  image2?: string;
   created_at: string;
   categorie: string;
   utilisateur_nom: string;
@@ -25,13 +25,28 @@ export class PubaidesService {
 
   constructor(private http: HttpClient) {}
 
+  /** Transforme un nom de fichier en URL complète */
+  private getImageUrl(imageName?: string): string | null {
+    if (!imageName) return null;
+    return imageName.startsWith('http') 
+      ? imageName 
+      : `${environment.apiUrl}/uploads/${imageName}`;
+  }
+
   /** Récupérer tous les objets aides, optionnellement filtrés par catégorie */
   getAides(categorie: string = 'toutes'): Observable<ObjetAide[]> {
     let params = new HttpParams();
     if (categorie && categorie !== 'toutes') {
       params = params.set('categorie', categorie);
     }
-    return this.http.get<ObjetAide[]>(this.apiUrl, { params });
+    return this.http.get<ObjetAide[]>(this.apiUrl, { params }).pipe(
+      map(aides => aides.map(a => ({
+        ...a,
+        image: this.getImageUrl(a.image),
+        image1: this.getImageUrl(a.image1),
+        image2: this.getImageUrl(a.image2)
+      })))
+    );
   }
 
   /** Supprimer un objet d’aide par son ID */
