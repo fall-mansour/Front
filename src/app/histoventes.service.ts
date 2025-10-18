@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from '../environnement';
 
 export interface ObjetVente {
@@ -24,9 +24,23 @@ export class HistoventesService {
 
   constructor(private http: HttpClient) {}
 
+  /** Transforme un nom de fichier en URL complète */
+  private getImageUrl(imageName?: string): string {
+    if (!imageName) return '';
+    return imageName.startsWith('http')
+      ? imageName
+      : `${environment.apiUrl}/uploads/${imageName}`;
+  }
+
   /** Récupérer toutes les ventes d’un utilisateur */
   getVentesByUser(utilisateurId: number): Observable<ObjetVente[]> {
-    return this.http.get<ObjetVente[]>(`${this.apiUrl}/utilisateur/${utilisateurId}`);
+    return this.http.get<ObjetVente[]>(`${this.apiUrl}/utilisateur/${utilisateurId}`)
+      .pipe(
+        map(ventes => ventes.map(v => ({
+          ...v,
+          image: this.getImageUrl(v.image)
+        })))
+      );
   }
 
   /** Supprimer une vente par son ID */
