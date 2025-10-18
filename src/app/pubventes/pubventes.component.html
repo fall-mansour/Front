@@ -53,7 +53,7 @@
 
 <div *ngFor="let vente of getObjetsFiltres()" class="publication">
   <div class="image">
-    <img [src]="'http://localhost:3000/uploads/' + vente.image" alt="Objet en vente" />
+    <img [src]="'img' + vente.image" alt="Objet en vente" />
   </div>
   <div class="infos-objet">
     <h3>{{ vente.description }}</h3>
