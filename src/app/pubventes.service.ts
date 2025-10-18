@@ -26,9 +26,9 @@ export class PubventesService {
 
   constructor(private http: HttpClient) {}
 
-  // Méthode pour transformer le nom de fichier en URL complète
-  private getImageUrl(imageName?: string): string | null {
-    if (!imageName) return null;
+  /** Transforme un nom de fichier en URL complète */
+  private getImageUrl(imageName?: string): string {
+    if (!imageName) return '';
     return imageName.startsWith('http') 
       ? imageName 
       : `${environment.apiUrl}/uploads/${imageName}`;
@@ -37,14 +37,12 @@ export class PubventesService {
   getVentes(categorie: string = 'toutes'): Observable<ObjetVente[]> {
     return this.http.get<ObjetVente[]>(`${this.apiUrl}?categorie=${categorie}`)
       .pipe(
-        map(ventes => 
-          ventes.map(v => ({
-            ...v,
-            image: this.getImageUrl(v.image),
-            image1: this.getImageUrl(v.image1),
-            image2: this.getImageUrl(v.image2)
-          }))
-        )
+        map(ventes => ventes.map(v => ({
+          ...v,
+          image: this.getImageUrl(v.image),
+          image1: this.getImageUrl(v.image1),
+          image2: this.getImageUrl(v.image2)
+        })))
       );
   }
 
