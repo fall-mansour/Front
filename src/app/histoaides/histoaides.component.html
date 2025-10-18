@@ -20,7 +20,7 @@
 
   <!-- Liste des dons -->
   <div class="aide-card" *ngFor="let aide of filteredAides">
-    <img [src]="'http://localhost:3000/uploads/' + aide.image" alt="Image objet" />
+    <img [src]="aide.image" alt="Image objet" />
 
     <div class="aide-details">
       <h3>{{ aide.description }}</h3>
@@ -45,4 +45,5 @@
 
     </div>
   </div>
+
 
