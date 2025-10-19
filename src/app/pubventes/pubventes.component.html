@@ -63,10 +63,10 @@
     </div>
     
   <div class="vendeur">
-  <span> 👤<strong> {{ vente.nom_vendeur }}</strong></span>
-  <span> 📞 {{ vente.telephone }}</span>
-  <span> 📍 {{ vente.adresse }} </span>
-</div>
+      <span> 👤<strong> {{ vente.vendeurNom }}</strong></span>
+      <span>   📞  {{ vente.vendeurNumero }}</span>
+      <span>    📍 {{ vente.adresse }} </span>
+    </div>
 
     <button (click)="ouvrirDetails(vente)">Voir détails 👁️</button>
   </div>
