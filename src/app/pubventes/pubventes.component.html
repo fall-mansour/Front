@@ -61,11 +61,13 @@
       <span class="date">🗓️ <strong>{{ vente.created_at | date: 'dd/MM/yyyy, HH:mm' }}</strong></span>
       <span class="prix">💰 <strong>{{ vente.prix }} FCFA</strong></span>
     </div>
-    <div class="vendeur">
-      <span> 👤<strong> {{ vente.vendeurNom }}</strong></span>
-      <span>   📞  {{ vente.vendeurNumero }}</span>
-      <span>    📍 {{ vente.adresse }} </span>
-    </div>
+    
+  <div class="vendeur">
+  <span> 👤<strong> {{ vente.nom_vendeur }}</strong></span>
+  <span> 📞 {{ vente.telephone }}</span>
+  <span> 📍 {{ vente.adresse }} </span>
+</div>
+
     <button (click)="ouvrirDetails(vente)">Voir détails 👁️</button>
   </div>
 </div>
