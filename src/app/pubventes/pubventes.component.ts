@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PubventesService, ObjetVente } from '../pubventes.service';
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe, NgFor, NgIf, CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-pubventes',
   standalone: true,
-  imports: [FormsModule, NgFor, DatePipe, NgIf, CommonModule],
+  imports: [FormsModule, NgFor, DatePipe, NgIf, CommonModule,CurrencyPipe],
   templateUrl: './pubventes.component.html',
   styleUrls: ['./pubventes.component.scss'],
 })
