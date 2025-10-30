@@ -3,14 +3,7 @@
 <div class="main-content">
 <div class="search-bar">
   <input type="text"  placeholder="🔍 Rechercher..." [(ngModel)]="searchTerm"/>
-
-
-<button
-  class="compte"
-  (click)="redirigercompte()"
-  [ngClass]="{'compte-a-la-place-du-panier': statutUtilisateur !== 'acheteur'}">
-  <img src="data:image/png;base64,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" height="50px">
-</button>
+  <button (click)="redirigercompte()">👤</button>
 
 </div>
 </div>
@@ -59,7 +52,7 @@
     <h3>{{ vente.description }}</h3>
     <div class="meta">
       <span class="date">🗓️ <strong>{{ vente.created_at | date: 'dd/MM/yyyy, HH:mm' }}</strong></span>
-      <span class="prix">💰 <strong>{{ vente.prix }} FCFA</strong></span>
+      <span class="prix">💰 <strong>{{ vente.prix | currency: 'XOF' :'symbol':'1.0-0' }}</strong></span>
     </div>
     
   <div class="vendeur">
